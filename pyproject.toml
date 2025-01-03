@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "family-tree"
+version = "0.1.0"
+description = ""
+authors = ["Borovkov Ilya <iborovkov97@yandex.ru>"]
+license = "LICENSE.txt"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.12.3"
+flask = "^3.1.0"
+pytest = "^8.3.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 79
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "UP",
+    "B",
+    "SIM",
+    "I",
+]
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.mypy]
+ignore_missing_imports = true
