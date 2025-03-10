@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -143,6 +144,7 @@
         }
     </style>
 </head>
+
 <body>
     <h1>Интерактивное семейное древо</h1>
     <svg width="800" height="600"></svg>
@@ -290,14 +292,14 @@
         async function updateBackend(nodeData, action) {
             const url = action === 'update' ? 'http://localhost:5000/api/tree/update' : 'http://localhost:5000/api/tree/delete';
             const method = action === 'update' ? 'POST' : 'DELETE';
-            const body = action === 'update' ? JSON.stringify({ nodeData }) : JSON.stringify({ id: nodeData.id });
+            const body = action === 'update' ? JSON.stringify({nodeData}) : JSON.stringify({id: nodeData.id});
 
-            console.log(`Отправка ${action} запроса на сервер...`, { url, method, body });
+            console.log(`Отправка ${action} запроса на сервер...`, {url, method, body});
 
             try {
                 const response = await fetch(url, {
                     method: method,
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {'Content-Type': 'application/json'},
                     body: body
                 });
 
@@ -313,4 +315,5 @@
         loadTreeData();  // Загружаем дерево с бека при старте
     </script>
 </body>
+
 </html>
