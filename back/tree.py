@@ -4,11 +4,10 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # Разрешаем CORS для всех доменов
+CORS(app)
 
-# Пример дерева с уникальными ID
 tree = {
-    'id': str(uuid.uuid4()),  # Генерация уникального ID для корня
+    'id': str(uuid.uuid4()),
     'name': 'Иван Иванович',
     'photo': 'https://example.com/photo.jpg',
     'birthDate': '1950-01-01',
@@ -43,16 +42,17 @@ tree = {
 }
 
 
-# Маршрут для получения дерева
 @app.route('/api/tree', methods=['GET'])
 def get_tree():
     return jsonify(tree)
 
 
-# Маршрут для обновления узла
 @app.route('/api/tree/update', methods=['POST'])
 def update_node():
-    node_data = request.json.get('nodeData')
+    json = request.json
+    if json is None:
+        return jsonify({'status': 'error', 'message': 'Узел не найден'}), 404
+    node_data = json.get('nodeData')
     node_id = node_data['id']
 
     def update_node_recursively(node):
@@ -72,10 +72,12 @@ def update_node():
         return jsonify({'status': 'error', 'message': 'Узел не найден'}), 404
 
 
-# Маршрут для добавления нового узла
 @app.route('/api/tree/add', methods=['POST'])
 def add_node():
-    node_data = request.json['nodeData']
+    json = request.json
+    if json is None:
+        return jsonify({'status': 'error', 'message': 'Узел не найден'}), 404
+    node_data = json.get('nodeData')
     new_node = {
         'id': str(uuid.uuid4()),
         'name': node_data['name'],
@@ -84,14 +86,16 @@ def add_node():
         'deathDate': node_data.get('deathDate', ''),
         'children': [],
     }
-    tree_data['children'].append(new_node)
+    tree['children'].append(new_node)
     return jsonify({'message': 'Новый узел добавлен'})
 
 
-# Маршрут для удаления узла
 @app.route('/api/tree/delete', methods=['DELETE'])
 def delete_node():
-    node_id = request.json.get('id')
+    json = request.json
+    if json is None:
+        return jsonify({'status': 'error', 'message': 'Узел не найден'}), 404
+    node_id = json.get('id')
 
     def delete_node_recursively(node, parent=None):
         if node['id'] == node_id:
@@ -114,4 +118,4 @@ def delete_node():
 
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=8000, debug=True)
+    app.run(host='localhost', debug=True)
