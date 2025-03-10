@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Tree from "react-d3-tree";
-import './FamilyTree.css'; // Импортируем файл стилей
+import "./FamilyTree.css"; // Импорт стилей
 
 const API_URL = "http://localhost:5000/api/tree";
 
@@ -28,9 +28,7 @@ export default function FamilyTree() {
 
   const addNode = (parentId, name) => {
     const findNode = (node) => {
-      if (node.id === parentId) {
-        return node;
-      }
+      if (node.id === parentId) return node;
       for (let child of node.children || []) {
         const found = findNode(child);
         if (found) return found;
@@ -70,7 +68,7 @@ export default function FamilyTree() {
 
   const renderCustomNode = (nodeDatum) => {
     const isSelected = selectedNode === nodeDatum.id;
-    const isNodeAvailable = !(nodeDatum.children && nodeDatum.children.length >= 2); // Например, кнопка "Добавить" не доступна, если есть дети
+    const isNodeAvailable = !(nodeDatum.children && nodeDatum.children.length >= 2);
 
     return (
       <foreignObject width="100%" height="100%" x="-75" y="-75">
@@ -95,24 +93,24 @@ export default function FamilyTree() {
           <div className="node-card-footer">
             <button
               onClick={(e) => { e.stopPropagation(); addNode(nodeDatum.id, "Новый Узел"); }}
-              className={`action-btn ${!isNodeAvailable ? 'disabled' : ''}`}
+              className={`action-btn plus ${!isNodeAvailable ? 'disabled' : ''}`}
               disabled={!isNodeAvailable}
             >
-              <i className="fas fa-plus"></i>
+              <i className="fas fa-user-plus"></i>
             </button>
 
             <button
               onClick={(e) => { e.stopPropagation(); updateNode(nodeDatum.id, "Обновленное Имя"); }}
-              className="action-btn"
+              className="action-btn edit"
             >
-              <i className="fas fa-edit"></i>
+              <i className="fas fa-pen"></i>
             </button>
 
             <button
               onClick={(e) => { e.stopPropagation(); deleteNode(nodeDatum.id); }}
-              className="action-btn"
+              className="action-btn delete"
             >
-              <i className="fas fa-trash-alt"></i>
+              <i className="fas fa-trash"></i>
             </button>
           </div>
         </div>
