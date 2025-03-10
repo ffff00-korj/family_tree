@@ -1,0 +1,119 @@
+/* Контейнер для дерева */
+.family-tree-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: auto;
+}
+
+/* Карточка узла */
+.node-card {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+/* Подсвеченная карточка */
+.node-card.selected {
+  border-color: #4e8e9e;
+  background-color: #e0f4f4;
+  box-shadow: 0px 4px 6px rgba(78, 142, 158, 0.5);
+}
+
+/* Заголовок карточки */
+.node-card-header {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* Тело карточки */
+.node-card-body {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+/* Дата рождения и смерти */
+.birth-date,
+.death-date {
+  font-size: 10px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* Футер карточки с кнопками */
+.node-card-footer {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+/* Кнопка действия */
+.action-btn {
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 12px; /* Уменьшение размера текста */
+  width: 25px; /* Уменьшение кнопки */
+  height: 25px; /* Уменьшение кнопки */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #6e7dff, #2f80ed); /* Синий градиент */
+}
+
+/* Эффект наведения на кнопку */
+.action-btn:hover {
+  background: linear-gradient(135deg, #2f80ed, #6e7dff); /* Обратный градиент при наведении */
+}
+
+/* Отключенная кнопка */
+.action-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Иконки внутри кнопок */
+.action-btn i {
+  font-size: 14px; /* Уменьшение размера иконок */
+}
+
+/* Кнопка добавления */
+.action-btn.plus {
+  background: linear-gradient(135deg, #34c759, #28a745); /* Зеленый градиент */
+}
+
+.action-btn.plus:hover {
+  background: linear-gradient(135deg, #28a745, #34c759);
+}
+
+/* Кнопка редактирования */
+.action-btn.edit {
+  background: linear-gradient(135deg, #ffcc00, #ff9800); /* Желтый-оранжевый градиент */
+}
+
+.action-btn.edit:hover {
+  background: linear-gradient(135deg, #ff9800, #ffcc00);
+}
+
+/* Кнопка удаления */
+.action-btn.delete {
+  background: linear-gradient(135deg, #ff3b30, #ff1f2f); /* Красный градиент */
+}
+
+.action-btn.delete:hover {
+  background: linear-gradient(135deg, #ff1f2f, #ff3b30);
+}
+
