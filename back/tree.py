@@ -76,8 +76,12 @@ def update_node():
 def add_node():
     json = request.json
     if json is None:
-        return jsonify({'status': 'error', 'message': 'Узел не найден'}), 404
+        return jsonify(
+            {'status': 'error', 'message': 'Данные не получены'}
+        ), 400
+
     node_data = json.get('nodeData')
+    parent_id = node_data.get('parentId')
     new_node = {
         'id': str(uuid.uuid4()),
         'name': node_data['name'],
@@ -86,8 +90,32 @@ def add_node():
         'deathDate': node_data.get('deathDate', ''),
         'children': [],
     }
-    tree['children'].append(new_node)
-    return jsonify({'message': 'Новый узел добавлен'})
+
+    def find_and_add(node):
+        if node['id'] == parent_id:
+            if len(node.get('children', [])) < 2:  # Проверяем ограничение
+                node['children'].append(new_node)
+                return True
+            else:
+                return False
+        for child in node.get('children', []):
+            if find_and_add(child):
+                return True
+        return False
+
+    if parent_id:
+        if find_and_add(tree):
+            return jsonify({'message': 'Новый узел добавлен'})
+        else:
+            return jsonify(
+                {
+                    'status': 'error',
+                    'message': 'Родитель не найден или у него уже 2 ребенка',
+                }
+            ), 400
+    else:
+        tree['children'].append(new_node)
+        return jsonify({'message': 'Новый узел добавлен к корневой ноде'})
 
 
 @app.route('/api/tree/delete', methods=['DELETE'])
