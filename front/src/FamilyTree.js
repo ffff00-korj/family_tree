@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Tree from "react-d3-tree";
-import "./FamilyTree.css"; // Импорт стилей
+import "./FamilyTree.css";
 
 const API_URL = "http://localhost:5000/api/tree";
 
