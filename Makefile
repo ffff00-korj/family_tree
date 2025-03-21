@@ -1,5 +1,8 @@
-run:
+back_run:
 	flask --app back/tree run
 
-test:
+front_run:
+	npm start --prefix ./front
+
+back_test:
 	pytest back/
