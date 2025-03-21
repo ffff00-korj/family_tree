@@ -62,7 +62,6 @@ export default function FamilyTree() {
 
     const renderCustomNode = (nodeDatum) => {
         const isSelected = selectedNode === nodeDatum.id;
-        const isNodeAvailable = !(nodeDatum.children && nodeDatum.children.length >= 2);
 
         return (
             <foreignObject width="100%" height="100%" x="-75" y="-75">
@@ -87,8 +86,7 @@ export default function FamilyTree() {
                     <div className="node-card-footer">
                         <button
                             onClick={(e) => { e.stopPropagation(); addNode(nodeDatum.id, "Новый Узел"); }}
-                            className={`action-btn plus ${!isNodeAvailable ? 'disabled' : ''}`}
-                            disabled={!isNodeAvailable}
+                            className={`action-btn plus`}
                         >
                             <i className="fas fa-user-plus"></i>
                         </button>

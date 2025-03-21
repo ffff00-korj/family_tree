@@ -93,15 +93,9 @@ def add_node():
 
     def find_and_add(node):
         if node['id'] == parent_id:
-            if len(node.get('children', [])) < 2:  # Проверяем ограничение
-                node['children'].append(new_node)
-                return True
-            else:
-                return False
-        for child in node.get('children', []):
-            if find_and_add(child):
-                return True
-        return False
+            node['children'].append(new_node)
+            return True
+        return any(find_and_add(child) for child in node.get('children', []))
 
     if parent_id:
         if find_and_add(tree):
@@ -110,7 +104,7 @@ def add_node():
             return jsonify(
                 {
                     'status': 'error',
-                    'message': 'Родитель не найден или у него уже 2 ребенка',
+                    'message': 'Родитель не найден',
                 }
             ), 400
     else:
